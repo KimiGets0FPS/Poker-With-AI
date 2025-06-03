@@ -9,6 +9,13 @@ class Hand:
 
     def get_hand(self):
         return self.hand
+    
+    def get_highest_hand(self):
+        cards = self.all_cards()
+        list_suits = [card[0] for card in cards]
+        list_ranks = [card[1:] for card in cards]
+
+        
 
 
 class HighCard(Hand):
@@ -28,32 +35,29 @@ class OnePair(Hand):
 
 
 class TwoPair(OnePair):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, "TwoPair")
-
-    def get_hand(self):
-        return self.hand
+    def __init__(self, hole_cards, community_cards, hand="TwoPair"):
+        super().__init__(hole_cards, community_cards, hand)
 
 
 class ThreeOfAKind(Hand):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, "ThreeOfAKind")
+    def __init__(self, hole_cards, community_cards, hand="ThreeOfAKind"):
+        super().__init__(hole_cards, community_cards, hand)
 
     def get_hand(self):
         return self.hand
 
 
 class Straight(Hand):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, "Straight")
+    def __init__(self, hole_cards, community_cards, hand="Straight"):
+        super().__init__(hole_cards, community_cards, hand)
 
     def get_hand(self):
         return self.hand
 
 
 class Flush(Hand):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, "Flush")
+    def __init__(self, hole_cards, community_cards, hand="Flush"):
+        super().__init__(hole_cards, community_cards, hand)
 
     def get_hand(self):
         return self.hand
@@ -75,15 +79,15 @@ class FourOfAKind(Hand):
         return self.hand
 
 
-class StraightFlush(Hand, Flush, Straight):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, "StraightFlush")
+class StraightFlush(Flush, Straight):
+    def __init__(self, hole_cards, community_cards, hand="StraightFlush"):
+        super().__init__(hole_cards, community_cards, hand)
 
     def get_hand(self):
         return self.hand
 
 
-class RoyalFlush(Hand, StraightFlush):
+class RoyalFlush(StraightFlush):
     def __init__(self, hole_cards, community_cards):
         super().__init__(hole_cards, community_cards, "RoyalFlush")
 
