@@ -5,6 +5,9 @@ from hand import *
 def game(players):
     players_cards,  community_cards = get_cards(players)
     player_cards = players_cards[0]
+    bot_cards = players_cards[1:players]
+    print(player_cards, bot_cards)
+    print(community_cards)
 
 
 def get_hand(player_cards: list[str], community_cards: list[str]) -> Hand:
@@ -12,12 +15,13 @@ def get_hand(player_cards: list[str], community_cards: list[str]) -> Hand:
 
     count_suits = {}
     count_ranks = {}
-    for i in range(len(hand.all_cards())):
-        count_suits[hand.all_cards()[i][0]] = count_suits.get(hand.all_cards()[i][0], 0) + 1
-        count_ranks[hand.all_cards()[i][1]] = count_ranks.get(hand.all_cards()[i][1], 0) + 1
+    for i in range(len(hand.get_all_cards())):
+        count_suits[hand.get_all_cards()[i][0]] = count_suits.get(hand.get_all_cards()[i][0], 0) + 1
+        count_ranks[hand.get_all_cards()[i][1]] = count_ranks.get(hand.get_all_cards()[i][1], 0) + 1
 
-    highest_hand = TwoPair(player_cards, community_cards)
+    sorted(count_suits.items(), key=lambda item: item[0])
 
+    
     # Royal Flush
 
     # Straight Flush
