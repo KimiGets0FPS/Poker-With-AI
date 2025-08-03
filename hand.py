@@ -1,95 +1,126 @@
 class Hand:
-    def __init__(self, hole_cards, community_cards, hand=None, value=0):
+    def __init__(self, hole_cards, community_cards, hand=None, value=None):
         self.hole_cards = hole_cards
         self.community_cards = community_cards
         self.hand = hand
         self.value = value
 
-    def get_all_cards(self):
+        self.suits = ["♦", "♣", "♥", "♠"]
+        self.ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
+
+    def all_cards(self):
         return self.hole_cards + self.community_cards
 
     def get_hand(self):
         return self.hand
-    
+
     def get_value(self):
         return self.value
-    
-    def compare_hands(self, other_hand):
-        ...
+
+    def get_rank_from_value(self):
+        return self.ranks[self.get_value()-2]
+
+    def get_higher_hand(self, other_hand: super()) -> 1 or 0 or -1:
+        # 1 means this player wins
+        # 0 means tie
+        # -1 means this player loses
+        if self.hand > other_hand.get_hand():
+            return 1
+        return 0
 
 
-class HighCard(Hand):
-    def __init__(self, hole_cards, community_cards, hand):
-        super().__init__(hole_cards, community_cards, hand, value=1)
+class Card:
+    def __init__(self, suit, rank):
+        self.suit = suit
+        self.rank = rank
 
-    def get_hand(self):
-        return self.hand
+        self._suits = ["♦", "♣", "♥", "♠"]
+        self._ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
 
+    def get_suit(self):
+        return self.suit
 
-class OnePair(Hand):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, hand="OnePair", value=2)
+    def get_rank(self):
+        return self.rank
 
-    def get_hand(self):
-        return self.hand
+    def __str__(self):
+        return f'{self.rank} of {self.suit}'
 
-
-class TwoPair(Hand, OnePair):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, hand="TwoPair", value=3)
-
-
-class ThreeOfAKind(Hand):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, hand="ThreeOfAKind", value=4)
-
-    def get_hand(self):
-        return self.hand
-
-
-class Straight(Hand):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, hand="Straight", value=5)
-
-    def get_hand(self):
-        return self.hand
-
-
-class Flush(Hand):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, hand="Flush", value=6)
-
-    def get_hand(self):
-        return self.hand
-
-
-class FullHouse(ThreeOfAKind, OnePair):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, hand="FullHouse", value=7)
-
-    def get_hand(self):
-        return self.hand
-
-
-class FourOfAKind(Hand):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, hand="FourOfAKind", value=8)
-
-    def get_hand(self):
-        return self.hand
-
-
-class StraightFlush(Hand, Flush, Straight):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, hand="StraightFlush", value=9)
-
-    def get_hand(self):
-        return self.hand
-
-
-class RoyalFlush(Hand, StraightFlush):
-    def __init__(self, hole_cards, community_cards):
-        super().__init__(hole_cards, community_cards, hand="RoyalFlush", value=10)
-
-    def get_hand(self):
-        return self.hand
+# class HighCard(Hand):
+#     def __init__(self, hole_cards, community_cards, hand):
+#         super().__init__(hole_cards, community_cards, hand)
+#
+#     def get_hand(self):
+#         return self.hand
+#
+#
+# class OnePair(Hand):
+#     def __init__(self, hole_cards, community_cards, hand="OnePair"):
+#         super().__init__(hole_cards, community_cards, hand)
+#
+#     def get_hand(self):
+#         return self.hand
+#
+#
+# class TwoPair(OnePair):
+#     def __init__(self, hole_cards, community_cards):
+#         super().__init__(hole_cards, community_cards, "TwoPair")
+#
+#     def get_hand(self):
+#         return self.hand
+#
+#
+# class ThreeOfAKind(Hand):
+#     def __init__(self, hole_cards, community_cards):
+#         super().__init__(hole_cards, community_cards, "ThreeOfAKind")
+#
+#     def get_hand(self):
+#         return self.hand
+#
+#
+# class Straight(Hand):
+#     def __init__(self, hole_cards, community_cards):
+#         super().__init__(hole_cards, community_cards, "Straight")
+#
+#     def get_hand(self):
+#         return self.hand
+#
+#
+# class Flush(Hand):
+#     def __init__(self, hole_cards, community_cards):
+#         super().__init__(hole_cards, community_cards, "Flush")
+#
+#     def get_hand(self):
+#         return self.hand
+#
+#
+# class FullHouse(ThreeOfAKind, OnePair):
+#     def __init__(self, hole_cards, community_cards):
+#         super().__init__(hole_cards, community_cards, "FullHouse")
+#
+#     def get_hand(self):
+#         return self.hand
+#
+#
+# class FourOfAKind(Hand):
+#     def __init__(self, hole_cards, community_cards):
+#         super().__init__(hole_cards, community_cards, "FourOfAKind")
+#
+#     def get_hand(self):
+#         return self.hand
+#
+#
+# class StraightFlush(Hand, Flush, Straight):
+#     def __init__(self, hole_cards, community_cards):
+#         super().__init__(hole_cards, community_cards, "StraightFlush")
+#
+#     def get_hand(self):
+#         return self.hand
+#
+#
+# class RoyalFlush(Hand, StraightFlush):
+#     def __init__(self, hole_cards, community_cards):
+#         super().__init__(hole_cards, community_cards, "RoyalFlush")
+#
+#     def get_hand(self):
+#         return self.hand
